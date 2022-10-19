@@ -1,4 +1,4 @@
-from TT95Logger import SerialInstrument
+from SerialInstrument import SerialInstrument
 
 libel_instr = SerialInstrument('/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AH06GGYC-if00-port0', 115200, 'libelium_raw_data.csv', '/home/pi/Data/libelium/')
 

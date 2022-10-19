@@ -1,4 +1,4 @@
-from TT95Logger import SerialInstrument
+from SerialInstrument import SerialInstrument
 
 yp_instr = SerialInstrument('/dev/serial/by-id/usb-FTDI_TTL232R_FTC23PQY-if00-port0', 9600, 'YP_raw_data.csv', '/home/pi/Data/YP/')
 
