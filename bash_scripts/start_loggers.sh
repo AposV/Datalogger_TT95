@@ -1,4 +1,4 @@
 #!/bin/sh
-python3 /home/pi/Datalogger_TT95/bash_scripts/YP_logger.py &
-python3 /home/pi/Datalogger_TT95/bash_scripts/arduino_logger.py &
-python3 /home/pi/Datalogger_TT95/bash_scripts/libel_logger.py &
+python3 /home/pi/Datalogger_TT95/serial_readers/YP_logger.py &
+python3 /home/pi/Datalogger_TT95/serial_readers/arduino_logger.py &
+python3 /home/pi/Datalogger_TT95/serial_readers/libel_logger.py &
