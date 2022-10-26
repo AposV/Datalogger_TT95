@@ -1,3 +1,6 @@
+import mysql.connection
+from mysql.connector import Error
+
 class MySQLConnector():
      
     def __init__(self, config=None):
