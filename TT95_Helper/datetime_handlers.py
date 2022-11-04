@@ -40,7 +40,7 @@ def swap_dt_frmt_recursively(old_folder, new_folder):
 
             old_df = pd.read_csv(of, names=names)
             new_df = swap_df_datetime_format(old_df)
-            new_df.to_csv(nf)
+            new_df.to_csv(nf, index=False, header=False)
             print('Writing: ' + nf)
         else:
             swap_dt_frmt_recursively(of, nf)
