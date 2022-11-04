@@ -28,13 +28,13 @@ class SerialInstrument():
 
     def write_output(self, reading):
         now = datetime.now()
-        date_file = now.strftime("%m_%d_%Y")
+        date_file = now.strftime("%Y_%m_%d")
         with open(self.out_file_path + self.output_file, "a") as f:
-            f.write(now.strftime("%d-%m-%Y %H:%M:%S")+ ',' +reading)
+            f.write(now.strftime("%Y_%m_%d %H:%M:%S")+ ',' +reading)
         with open(self.out_file_path +
                   'backup/'+
                   date_file+'_'+self.output_file, "a") as f:
-            f.write(now.strftime("%d-%m-%Y %H:%M:%S")+ ',' +reading)
+            f.write(now.strftime("%Y_%m_%d %H:%M:%S")+ ',' +reading)
 
 
 
