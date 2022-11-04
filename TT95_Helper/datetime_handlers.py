@@ -19,7 +19,7 @@ def swap_datetime_format(date, inplace=False):
 
 
 def swap_df_datetime_format(df):
-    df.Datetime.apply(lambda x: swap_datetime_format(x, inplace=True))
+    df.Datetime = df.Datetime.apply(lambda x: swap_datetime_format(x, inplace=True))
     return df
 
 
