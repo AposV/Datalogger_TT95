@@ -48,7 +48,7 @@ ext1_data = ext1_data[ext1_data['Datetime'] >= start_date]
 ext2_data = ext2_data[ext2_data['Datetime'] >= start_date]
 rta_data = rta_data[rta_data['Datetime'] >= start_date]
 libelium_data = libelium_data[libelium_data['Datetime'] >= start_date]
-arduino_data = arduino_data_data[arduino_data['Datetime'] >= start_date]
+arduino_data = arduino_data[arduino_data['Datetime'] >= start_date]
 
 print(ext1_data)
 
