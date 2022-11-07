@@ -42,12 +42,11 @@ libelium_data = libelium_data.dropna()
 
 # Process arduino Sensors and clean data
 arduino_data = pd.read_csv(arduino_filepath, names=name_config['raw_csv_columns']['arduino'])
-libelium_data = libelium_data.dropna()
+arduino_data = arduino_data.dropna()
 
 ext1_data = ext1_data[ext1_data['Datetime'] >= start_date]
 ext2_data = ext2_data[ext2_data['Datetime'] >= start_date]
 rta_data = rta_data[rta_data['Datetime'] >= start_date]
-libelium_data = libelium_data[libelium_data['Datetime'] >= start_date]
 arduino_data = arduino_data[arduino_data['Datetime'] >= start_date]
 
 print(ext1_data)
@@ -57,7 +56,7 @@ print(ext1_data)
 with open('db_config.json', 'r') as read_file:
     db_config = json.load(read_file)
 
-'''conn = MySQLConnector(db_config)
+conn = MySQLConnector(db_config)
 
 # Upload data from each sensor to the database
 conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
@@ -67,7 +66,7 @@ conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'ard
 conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
 
 # Commit changes to the database and close connection
-#conn.commit()
+conn.commit()
 conn.close()
-'''
+
 
