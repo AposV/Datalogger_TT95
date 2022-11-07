@@ -3,9 +3,9 @@ that are used in the monitoring system to avoid hardcoding them in scripts
 and make updating easier"""
 
 naming_config = {
-    'yp_inst_ids': {'ext1': '1903210671',
-                    'ext2': '1903210681',
-                    'rta': '1904112001'},
+    'yp_inst_ids': {'ext1': 1903210671,
+                    'ext2': 1903210681,
+                    'rta': 1904112001},
 
     'raw_data_folder_location': '/home/pi/Data',
 

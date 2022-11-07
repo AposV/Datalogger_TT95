@@ -20,15 +20,13 @@ print(yp_data.dtypes)
 ext1_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['ext1']]
 ext2_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['ext2']]
 rta_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['rta']]
-print('Ext1_df')
-print(yp_data['Inst_id'] == name_config['yp_inst_ids']['ext1'])
+
 
 ext1_data = ext1_df.loc[:,['Datetime', 't1', 't2']]
 ext2_data = ext2_df.loc[:,['Datetime', 't1', 't2']]
 rta_data = rta_df.loc[:,['Datetime', 't1', 't2', 't3', 't4', 't5',
                   't6', 't7', 't8', 't9', 't10', 't11']]
-print('ext1_data')
-print(ext1_data)
+
 
 # Process Libelium Sensors and clean data
 libelium_data = pd.read_csv(libel_filepath, names=name_config['raw_csv_columns']['libelium'])
