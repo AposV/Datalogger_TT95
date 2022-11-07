@@ -13,18 +13,20 @@ arduino_filepath = dth.get_prev_day_data_file('arduino')
 
 
 # Process Yieldpoint Sensors and clean data
-yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp'])
+yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp']).iloc[:10,:]
+print(yp_data)
 
 # Separate data for each extensometer and the rock temp array
 ext1_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['ext1']]
 ext2_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['ext2']]
 rta_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['rta']]
+print(ext1_df)
 
 ext1_data = ext1_df.loc[:,['Datetime', 't1', 't2']]
 ext2_data = ext2_df.loc[:,['Datetime', 't1', 't2']]
 rta_data = rta_df.loc[:,['Datetime', 't1', 't2', 't3', 't4', 't5',
                   't6', 't7', 't8', 't9', 't10', 't11']]
-
+print(ext1_data)
 
 # Process Libelium Sensors and clean data
 libelium_data = pd.read_csv(libel_filepath, names=name_config['raw_csv_columns']['libelium'])
@@ -44,11 +46,11 @@ conn = MySQLConnector(db_config)
 conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', True)
 conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', True)
 conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', True)
-conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', True)
-conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', True)
+#conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', True)
+#conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', True)
 
 # Commit changes to the database and close connection
-conn.commit()
+#conn.commit()
 conn.close()
 
 
