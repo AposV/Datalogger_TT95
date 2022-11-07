@@ -8,11 +8,16 @@ from TT95_Helper import datetime_handlers as dth
 name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
-yp_filepath = f"{data_folder}/{name_config['raw_data_instrmument_folders']['yp']}/" \
+start_date = '2022-10-17'
+
+yp_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['yp']}/" \
               f"{name_config['raw_data_master_filenames']['yp']}"
 
-libel_filepath = dth.get_prev_day_data_file('libelium')
-arduino_filepath = dth.get_prev_day_data_file('arduino')
+libel_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['libelium']}/" \
+              f"{name_config['raw_data_master_filenames']['libelium']}"
+
+arduino_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['arduino']}/" \
+              f"{name_config['raw_data_master_filenames']['arduino']}"
 
 
 # Process Yieldpoint Sensors and clean data
@@ -39,11 +44,20 @@ libelium_data = libelium_data.dropna()
 arduino_data = pd.read_csv(arduino_filepath, names=name_config['raw_csv_columns']['arduino'])
 libelium_data = libelium_data.dropna()
 
+ext1_data = ext1_data[ext1_data['Datetime'] >= start_date]
+ext2_data = ext2_data[ext2_data['Datetime'] >= start_date]
+rta_data = rta_data[rta_data['Datetime'] >= start_date]
+libelium_data = libelium_data[libelium_data['Datetime'] >= start_date]
+arduino_data = arduino_data_data[arduino_data['Datetime'] >= start_date]
+
+print(ext1_data)
+
+
 # Read database configuration file and establish connection to the database
 with open('db_config.json', 'r') as read_file:
     db_config = json.load(read_file)
 
-conn = MySQLConnector(db_config)
+'''conn = MySQLConnector(db_config)
 
 # Upload data from each sensor to the database
 conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
@@ -53,8 +67,7 @@ conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'ard
 conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
 
 # Commit changes to the database and close connection
-conn.commit()
+#conn.commit()
 conn.close()
-
-
+'''
 
