@@ -1,4 +1,6 @@
-from datetime import datetime, timedelta
+"""This file contains a dictionary containing various naming configurations
+that are used in the monitoring system to avoid hardcoding them in scripts
+and make updating easier"""
 
 naming_config = {
     'yp_inst_ids': {'ext1': '1903210671',
@@ -34,12 +36,3 @@ naming_config = {
                                      'dendrometer', 't1', 'rhumid', 'atm_p', 't2', 'voltage']},
 
 }
-
-
-def get_prev_day_data_file(sensor):
-    prev_date = (datetime.today() - timedelta(days=1)).strftime('%Y_%m_%d')
-    filepath = naming_config['raw_data_folder_location'] + '/' + \
-                  naming_config['raw_data_instrument_folders'][sensor] + '/backup/' + \
-                  prev_date + '_' + naming_config['raw_data_master_filenames'][sensor]
-
-    return filepath
