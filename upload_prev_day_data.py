@@ -13,7 +13,7 @@ arduino_filepath = dth.get_prev_day_data_file('arduino')
 
 
 # Process Yieldpoint Sensors and clean data
-yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp']).iloc[1:5]
+yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp'])
 
 
 # Separate data for each extensometer and the rock temp array
