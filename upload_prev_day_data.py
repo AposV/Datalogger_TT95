@@ -14,7 +14,7 @@ arduino_filepath = dth.get_prev_day_data_file('arduino')
 
 # Process Yieldpoint Sensors and clean data
 yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp']).iloc[:10,:]
-print(yp_data)
+print(yp_data['Inst_id'])
 
 # Separate data for each extensometer and the rock temp array
 ext1_df = yp_data[yp_data['Inst_id'] == name_config['yp_inst_ids']['ext1']]
@@ -27,7 +27,7 @@ ext1_data = ext1_df.loc[:,['Datetime', 't1', 't2']]
 ext2_data = ext2_df.loc[:,['Datetime', 't1', 't2']]
 rta_data = rta_df.loc[:,['Datetime', 't1', 't2', 't3', 't4', 't5',
                   't6', 't7', 't8', 't9', 't10', 't11']]
-print(ext1_data)
+print('ext1_data')
 print(ext1_data)
 
 # Process Libelium Sensors and clean data
