@@ -8,7 +8,8 @@ from TT95_Helper import datetime_handlers as dth
 name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
-start_date = '2022-10-17'
+start_date = '2022-01-01'
+stop_date = '2023-01-01'
 
 yp_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['yp']}/" \
               f"{name_config['raw_data_master_filenames']['yp']}"
@@ -44,10 +45,10 @@ libelium_data = libelium_data.dropna()
 arduino_data = pd.read_csv(arduino_filepath, names=name_config['raw_csv_columns']['arduino'])
 arduino_data = arduino_data.dropna()
 
-ext1_data = ext1_data[ext1_data['Datetime'] >= start_date]
-ext2_data = ext2_data[ext2_data['Datetime'] >= start_date]
-rta_data = rta_data[rta_data['Datetime'] >= start_date]
-arduino_data = arduino_data[arduino_data['Datetime'] >= start_date]
+ext1_data = ext1_data[(ext1_data['Datetime'] >= start_date) & (ext1_data['Datetime'] <= stop_date)]
+ext2_data = ext2_data[(ext2_data['Datetime'] >= start_date) & (ext2_data['Datetime'] <= stop_date)]
+rta_data = rta_data[(rta_data['Datetime'] >= start_date) & (rta_data['Datetime'] <= stop_date)]
+arduino_data = arduino_data[(arduino_data['Datetime'] >= start_date) & (arduino_data['Datetime'] <= stop_date)]
 
 print(ext1_data)
 
@@ -59,10 +60,10 @@ with open('db_config.json', 'r') as read_file:
 conn = MySQLConnector(db_config)
 
 # Upload data from each sensor to the database
-conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
-conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
-conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
-conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
+#conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
+#conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
+#conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
+#conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
 conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
 
 # Commit changes to the database and close connection
