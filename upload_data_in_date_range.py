@@ -50,7 +50,7 @@ ext2_data = ext2_data[(ext2_data['Datetime'] >= start_date) & (ext2_data['Dateti
 rta_data = rta_data[(rta_data['Datetime'] >= start_date) & (rta_data['Datetime'] <= stop_date)]
 arduino_data = arduino_data[(arduino_data['Datetime'] >= start_date) & (arduino_data['Datetime'] <= stop_date)]
 
-print(ext1_data)
+print(arduino_data)
 
 
 # Read database configuration file and establish connection to the database
@@ -63,8 +63,8 @@ conn = MySQLConnector(db_config)
 #conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
 #conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
 #conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
-#conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
-conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
+conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
+#conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
 
 # Commit changes to the database and close connection
 conn.commit()
