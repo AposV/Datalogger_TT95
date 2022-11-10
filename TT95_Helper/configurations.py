@@ -24,8 +24,8 @@ naming_config = {
                          'arduino': ('datetime', 't1', 't2', 't3',
                                't4', 't5', 't6', 'luminosity'),
                          'libelium': ('datetime', 'epoch_time', 'battery_level',
-                                      'dendrometer', 't1', 'r_humid', 'atm_p',
-                                      't2', 'voltage')},
+                                      'dendrometer', 'air_temp', 'r_humid', 'atm_p',
+                                      'rock_temp', 'voltage')},
 
     'raw_csv_columns': {'yp': ['Datetime', 'Datapoint_no', 'Order', 'Year', 'Month', 'Day', 'Hour',
                                'Minute', 'Second', 'Inst_id', 't1', 't2', 't3',
@@ -33,6 +33,6 @@ naming_config = {
                         'arduino': ['Datetime', 't1', 't2', 't3',
                                     't4', 't5', 't6', 'luminosity'],
                         'libelium': ['Datetime', 'epoch_time', 'battery_level',
-                                     'dendrometer', 't1', 'rhumid', 'atm_p', 't2', 'voltage']},
+                                     'dendrometer', 'air_temp', 'rhumid', 'atm_p', 'rock_temp', 'voltage']},
 
 }
