@@ -40,6 +40,7 @@ libelium_data = libelium_data.dropna()
 with open('db_config.json', 'r') as read_file:
     db_config = json.load(read_file)
 
+# Establish connection with MySQL server
 conn = MySQLConnector(db_config)
 
 # Upload data from each sensor to the database
