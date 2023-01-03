@@ -8,8 +8,8 @@ from TT95_Helper import datetime_handlers as dth
 name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
-start_date = '2022-11-06'
-stop_date = '2023-01-01'
+start_date = '2022-12-13'
+stop_date = '2023-02-01'
 
 yp_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['yp']}/" \
               f"{name_config['raw_data_master_filenames']['yp']}"
