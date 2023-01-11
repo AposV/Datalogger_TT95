@@ -1,5 +1,8 @@
 import json
+import sys
+
 import pandas as pd
+
 from datetime import datetime, timedelta
 from TT95_Helper.db_helpers import MySQLConnector
 from TT95_Helper import configurations
@@ -8,8 +11,12 @@ from TT95_Helper import datetime_handlers as dth
 name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
-start_date = '2022-12-13'
-stop_date = '2023-02-01'
+# Call the script as: python3 upload_data_in_date_range.py 'start_date' 'end_date'
+start_date = sys.argv[1]
+stop_date = sys.argv[2]
+
+print(start_date)
+print(stop_date)
 
 yp_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['yp']}/" \
               f"{name_config['raw_data_master_filenames']['yp']}"
