@@ -3,19 +3,8 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include "Adafruit_TSL2591.h"
-#include <DHT.h>
 
 #define ONE_WIRE_BUS 2
-
-//>>>>>>>
-#define DHT1PIN 3 // Pin for DHT11 sensor 1
-#define DHT2PIN 4 // Pin for DHT11 sensor 2
-#define DHT3PIN 5 // Pin for DHT11 sensor 3
-
-DHT dht1(DHT1PIN, DHT11);
-DHT dht2(DHT2PIN, DHT11);
-DHT dht3(DHT3PIN, DHT11);
-//>>>>>>>
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
@@ -161,13 +150,6 @@ void setup() {
 
   //displaySensorDetails();
   configureSensor();
-
-  //>>>>>>
-  //Serial.begin(9600); // Initialize serial communication
-  dht1.begin(); // Initialize DHT11 sensor 1
-  dht2.begin(); // Initialize DHT11 sensor 2
-  dht3.begin(); // Initialize DHT11 sensor 3
-  //>>>>>>
 }
 
 void loop() {
@@ -180,16 +162,6 @@ void loop() {
   tempSensor5 = sensors.getTempC(sensor5); // Gets the values of the temperature
   tempSensor6 = sensors.getTempC(sensor6); // Gets the values of the temperature
   lum = simpleRead();
-
-  float t1 = dht1.readTemperature(); // Read temperature from sensor 1
-  float h1 = dht1.readHumidity(); // Read humidity from sensor 1
-  float t2 = dht2.readTemperature(); // Read temperature from sensor 2
-  float h2 = dht2.readHumidity(); // Read humidity from sensor 2
-  float t3 = dht3.readTemperature(); // Read temperature from sensor 3
-  float h3 = dht3.readHumidity(); // Read humidity from sensor 3
-
-
-
 
   Serial.print(tempSensor1);
   Serial.print(", ");
@@ -204,21 +176,7 @@ void loop() {
   Serial.print(tempSensor6);
   Serial.print(", ");
   Serial.print(lum);
-
-//>>>>>>
-  Serial.print(", ");
-  Serial.print(t1);
-  Serial.print(", ");
-  Serial.print(t2);
-  Serial.print(", ");
-  Serial.print(t3);
-  Serial.print(", ");
-  Serial.print(h1);
-  Serial.print(", ");
-  Serial.print(h2);
-  Serial.print(", ");
-  Serial.print(h3);
-//>>>>>>
   Serial.println();
+
   delay(1000UL*60*10);
 }
