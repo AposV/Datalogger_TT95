@@ -12,8 +12,10 @@ name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
 # Call the script as: python3 upload_data_in_date_range.py 'start_date' 'end_date'
-start_date = pd.to_datetime(sys.argv[1]) # sys.argv[1]
-stop_date = pd.to_datetime(sys.argv[2]) # sys.argv[2]
+# IMPORTANT: Use underscore instead of dashes in the date format
+# Example: python3 upload_data_in_date_range.py '2023-03-29' '2023-05-26'
+start_date = sys.argv[1]
+stop_date = sys.argv[2]
 
 print(start_date)
 print(stop_date)
