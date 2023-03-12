@@ -56,7 +56,7 @@ arduino_data = arduino_data.dropna()
 
 ext1_data = ext1_data[(ext1_data['Datetime'] >= start_date) & (ext1_data['Datetime'] <= stop_date)]
 ext2_data = ext2_data[(ext2_data['Datetime'] >= start_date) & (ext2_data['Datetime'] <= stop_date)]
-libelium_data = libelium_data[(libelium_data['Datetime'] >= start_date) & (libelium_data>=stop_date)]
+libelium_data = libelium_data[(libelium_data['Datetime'] >= start_date) & (libelium_data['Datetime'] <= stop_date)]
 rta_data = rta_data[(rta_data['Datetime'] >= start_date) & (rta_data['Datetime'] <= stop_date)]
 arduino_data = arduino_data[(arduino_data['Datetime'] >= start_date) & (arduino_data['Datetime'] <= stop_date)]
 
