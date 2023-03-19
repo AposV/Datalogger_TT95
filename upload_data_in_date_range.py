@@ -75,16 +75,16 @@ with open('db_config.json', 'r') as read_file:
 conn = MySQLConnector(db_config)
 
 # Upload data from each sensor to the database
-conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
-conn.commit()
-conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
-conn.commit()
-conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
-conn.commit()
+#conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
+#conn.commit()
+#conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
+#conn.commit()
+#conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
+#conn.commit()
 conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
 conn.commit()
-conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
-conn.commit()
+#conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
+#conn.commit()
 
 # Commit changes to the database and close connection
 conn.close()

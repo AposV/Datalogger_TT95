@@ -24,7 +24,7 @@ naming_config = {
                          'arduino': ('datetime', 't1', 't2', 't3',
                                't4', 't5', 't6', 'luminosity',
                                't1_3dht11', 't2_3dht11', 't3_3dht11',
-                               'h1_3dht11', 'h2_3dht11', 'h3_3dht11',
+                               'h1_3dht11', 'h2_3dht11', 'h3_3dht11'
                                ),
                          'libelium': ('datetime', 'epoch_time', 'battery_level',
                                       'dendrometer', 'air_temp', 'r_humid', 'atm_p',
