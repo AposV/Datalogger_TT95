@@ -10,7 +10,8 @@ class MySQLConnector():
                 self.connection = mysql.connector.connect(host=config['host'],
                                                           database=config['database'], 
                                                           user=config['user'],
-                                                          password=config['password'])
+                                                          password=config['password'],
+                                                          allow_local_infile=True)
                 if self.connection.is_connected():
                     self.db_Info = self.connection.get_server_info()
                     print('Connected to MySQL database... MySQL Server version on ', self.db_Info)
@@ -18,6 +19,20 @@ class MySQLConnector():
             except Error as e:
                 print('Error while connecting to MySQL', e)
 
+    def upload_file(self, filename, table):
+        sql = 'LOAD DATA LOCAL INFILE "' + filename + '" INTO TABLE ' + table + \
+              ' FIELDS TERMINATED BY "," LINES TERMINATED BY "\\n"'
+        print (sql)
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(sql)
+            success_state = 'Execution Succesful'
+            print(success_state)
+
+        except Error as e:
+            success_state = 'SQL Execution failed ' + str(e)
+            print(success_state)
+            self.connection.close()
 
     def upload_table(self, df, columns, table, verbose=False):
         """Upload a Dataframe to a table on the connected database, using the columns provided
@@ -38,12 +53,12 @@ class MySQLConnector():
         count = 0
         
         for row_value in values:
-            sql = "INSERT INTO " + table +' '  + str(columns).replace("'","") + " VALUES " + str(row_value) + ';'
+            sql = "INSERT INTO " + table + ' '  + str(columns).replace("'","") + " VALUES " + str(row_value) + ';'
             if verbose:
                 print(sql)
             try:
                 cursor.execute(sql)
-                success_state = 'Execution Succesful'
+                success_state = 'Execution Successful'
             
             except Error as e:
                 success_state = 'SQL Execution failed ' + str(e)

@@ -34,7 +34,7 @@ naming_config = {
                                'Minute', 'Second', 'Inst_id', 't1', 't2', 't3',
                                't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 't12'],
                         'arduino': ['Datetime', 't1', 't2', 't3',
-                                    't4', 't5', 't6', 'luminosity'
+                                    't4', 't5', 't6', 'luminosity',
                                     't1_3dht11', 't2_3dht11', 't3_3dht11',
                                     'h1_3dht11', 'h2_3dht11', 'h3_3dht11',
                                     ],
