@@ -57,6 +57,11 @@ libelium_data = libelium_data.dropna()
 
 # Process arduino Sensors and clean data
 arduino_data = pd.read_csv(arduino_filepath, names=name_config['raw_csv_columns']['arduino'])
+if (start_date < '2023-03-03'):
+    arduino_data.loc[:, ['t1_3dht11', 't2_3dht11', 't3_3dht11',
+                         'h1_3dht11', 'h2_3dht11', 'h3_3dht11']] = arduino_data.loc[:,['t1_3dht11', 't2_3dht11', 't3_3dht11',
+                               'h1_3dht11', 'h2_3dht11', 'h3_3dht11']].fillna(0)
+
 arduino_data = arduino_data.dropna()
 
 ext1_data = ext1_data[(ext1_data['Datetime'] >= start_date) & (ext1_data['Datetime'] <= stop_date)]
@@ -89,19 +94,8 @@ conn.upload_file("Db_upload_temp_files/rta.csv", "rock_temp_array")
 conn.upload_file("Db_upload_temp_files/arduino.csv", "arduino_tt95")
 conn.upload_file("Db_upload_temp_files/libelium.csv", "libelium")
 
-# Upload data from each sensor to the database
-#conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
-#conn.commit()
-#conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
-#conn.commit()
-#conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
-#conn.commit()
-#conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
-#conn.commit()
-#conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
-#conn.commit()
 conn.commit()
-# Commit changes to the database and close connection
+
 conn.close()
 
 

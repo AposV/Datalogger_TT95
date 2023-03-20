@@ -11,14 +11,16 @@ from TT95_Helper import datetime_handlers as dth
 name_config = configurations.naming_config
 data_folder = name_config['raw_data_folder_location']
 
+use_local_files = False
+
 # Call the script as: python3 upload_data_in_date_range.py 'start_date' 'end_date'
 # IMPORTANT: Use underscore instead of dashes in the date format
 # Example: python3 upload_data_in_date_range.py '2023_03_29' '2023_05_26'
 start_date = sys.argv[1]
 stop_date = sys.argv[2]
 
-print(start_date)
-print(stop_date)
+#print(start_date)
+#print(stop_date)
 
 yp_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['yp']}/" \
               f"{name_config['raw_data_master_filenames']['yp']}"
@@ -29,6 +31,10 @@ libel_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['li
 arduino_filepath = f"{data_folder}/{name_config['raw_data_instrument_folders']['arduino']}/" \
               f"{name_config['raw_data_master_filenames']['arduino']}"
 
+if use_local_files:
+    yp_filepath = "Debug/YP_raw_data.csv"
+    libel_filepath = "Debug/libelium_raw_data.csv"
+    arduino_filepath = "Debug/arduino_raw_data.csv"
 
 # Process Yieldpoint Sensors and clean data
 yp_data = pd.read_csv(yp_filepath, names=name_config['raw_csv_columns']['yp'])
@@ -45,13 +51,17 @@ ext2_data = ext2_df.loc[:,['Datetime', 't1', 't2']]
 rta_data = rta_df.loc[:,['Datetime', 't1', 't2', 't3', 't4', 't5',
                   't6', 't7', 't8', 't9', 't10', 't11']]
 
-
 # Process Libelium Sensors and clean data
 libelium_data = pd.read_csv(libel_filepath, names=name_config['raw_csv_columns']['libelium'])
 libelium_data = libelium_data.dropna()
 
 # Process arduino Sensors and clean data
 arduino_data = pd.read_csv(arduino_filepath, names=name_config['raw_csv_columns']['arduino'])
+if (start_date < '2023-03-03'):
+    arduino_data.loc[:, ['t1_3dht11', 't2_3dht11', 't3_3dht11',
+                         'h1_3dht11', 'h2_3dht11', 'h3_3dht11']] = arduino_data.loc[:,['t1_3dht11', 't2_3dht11', 't3_3dht11',
+                               'h1_3dht11', 'h2_3dht11', 'h3_3dht11']].fillna(0)
+
 arduino_data = arduino_data.dropna()
 
 ext1_data = ext1_data[(ext1_data['Datetime'] >= start_date) & (ext1_data['Datetime'] <= stop_date)]
@@ -67,26 +77,25 @@ print(libelium_data)
 print('----------------')
 print(arduino_data)
 
+ext1_data.to_csv("Db_upload_temp_files/ext1.csv", header=False, index=False)
+ext2_data.to_csv("Db_upload_temp_files/ext2.csv", header=False, index=False)
+libelium_data.to_csv("Db_upload_temp_files/libelium.csv", header=False, index=False)
+arduino_data.to_csv("Db_upload_temp_files/arduino.csv", header=False, index=False)
+rta_data.to_csv("Db_upload_temp_files/rta.csv", header=False, index=False)
 
-# Read database configuration file and establish connection to the database
-with open('db_config.json', 'r') as read_file:
+with open('test_db_config.json', 'r') as read_file:
     db_config = json.load(read_file)
 
 conn = MySQLConnector(db_config)
 
-# Upload data from each sensor to the database
-#conn.upload_table(ext1_data, name_config['db_table_columns']['ext1'], 'extensometer_1', False)
-#conn.commit()
-#conn.upload_table(ext2_data, name_config['db_table_columns']['ext2'], 'extensometer_2', False)
-#conn.commit()
-#conn.upload_table(rta_data, name_config['db_table_columns']['rta'], 'rock_temp_array', False)
-#conn.commit()
-conn.upload_table(arduino_data, name_config['db_table_columns']['arduino'], 'arduino_tt95', False)
-conn.commit()
-#conn.upload_table(libelium_data, name_config['db_table_columns']['libelium'], 'libelium', False)
-#conn.commit()
+conn.upload_file("Db_upload_temp_files/ext1.csv", "extensometer_1")
+conn.upload_file("Db_upload_temp_files/ext2.csv", "extensometer_2")
+conn.upload_file("Db_upload_temp_files/rta.csv", "rock_temp_array")
+conn.upload_file("Db_upload_temp_files/arduino.csv", "arduino_tt95")
+conn.upload_file("Db_upload_temp_files/libelium.csv", "libelium")
 
-# Commit changes to the database and close connection
+conn.commit()
+
 conn.close()
 
 
