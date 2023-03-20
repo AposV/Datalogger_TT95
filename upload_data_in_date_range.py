@@ -83,7 +83,7 @@ libelium_data.to_csv("Db_upload_temp_files/libelium.csv", header=False, index=Fa
 arduino_data.to_csv("Db_upload_temp_files/arduino.csv", header=False, index=False)
 rta_data.to_csv("Db_upload_temp_files/rta.csv", header=False, index=False)
 
-with open('test_db_config.json', 'r') as read_file:
+with open('db_config.json', 'r') as read_file:
     db_config = json.load(read_file)
 
 conn = MySQLConnector(db_config)
